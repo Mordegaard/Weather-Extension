@@ -1,0 +1,18 @@
+{
+  "name": "Погода",
+  "description": "Розширення для погоди від Mordegaard!",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["geolocation"],
+  "action": {
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "32": "materials/extension icons/icon32.png",
+    "64": "materials/extension icons/icon64.png",
+    "128": "materials/extension icons/icon128.png"
+  }
+}

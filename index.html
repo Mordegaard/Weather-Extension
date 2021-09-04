@@ -1,0 +1,76 @@
+<!doctype html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>Погода</title>
+    <meta name="author" content="Mordegaard">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css?v=1.0">
+    <script type='text/javascript' src='keys.js'></script>
+  </head>
+
+  <body class="flexed">
+    <section class="search flexed">
+      <input id="searchInput" type="text" placeholder="Введіть назву населеного пункту"/>
+      <button id="currentLocation"><img src="materials/location.svg"/></button>
+      <button id="searchButton" class="flexed">🔍&#xFE0E;</button>
+    </section>
+
+    <section class="today flexed" id="today">
+      <div class="today-background"></div>
+      <div class="weather-main flexed">
+        <div id="weatherIcon" class="flexed"><img src=""/></div>
+        <div><div id="weatherDegrees"></div><div id="weatherFeelsLike"></div></div>
+      </div>
+      <h3 id="cityName"></h3>
+      <div id="weatherDescription" class="flexed">
+        <span title="Опис"></span>
+        <span title="Вологість повітря"></span>
+        <span title="Швидкість вітру"></span>
+      </div>
+      <div class="weather-details">
+        <div class="container">
+          <div class="top flexed">
+            <div class="bg a"></div> <div class="bg b"></div> <div class="bg c"></div> <div class="bg d"></div>
+            <div class="sunrise-container flexed" style="left: 50px;">
+              <img src="materials/sunrise.svg"/><span id="sunriseTime"></span>
+            </div>
+            <img src="materials/haze.svg" style="position: relative; width: 120px;"/>
+            <div class="sunset-container flexed" style="right: 28px;">
+              <span id="sunsetTime"></span><img src="materials/sunset.svg"/>
+            </div>
+          </div>
+          <div class="bottom">
+            <div id="hourly" class="flexed">
+            </div>
+          </div>
+        </div>
+      </div>
+      <img id="detailsArrow" src="materials/arrow.svg"/>
+      <div id="loadingContainer">
+        <svg style="width: 100%; height: 100%; filter: drop-shadow(0px 0px 8px #348bee);">
+          <rect width="326" height="200" x="5" y="5" rx="24" style="
+            fill:none;
+            stroke-width:10;
+            stroke:#348bee;
+            stroke-linecap: round;
+            stroke-dasharray: 72 937;
+            animation: loading 1.5s linear infinite;
+          "/>
+        </svg>
+        <span id="loadingText" class="MRDGRD-animated"
+              data-animation-text="falling-letters"
+              data-animation-trigger="onload"
+              data-animation-speed="12"
+              data-animation-property="200"
+        >Дізнаюсь про погоду...</span>
+      </div>
+    </section>
+
+    <section class="week-container flexed">
+      <div id="week" class="flexed"></div>
+    </section>
+
+    <script src="MRDGRD-lib.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
