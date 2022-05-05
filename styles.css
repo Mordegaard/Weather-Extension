@@ -1,3 +1,25 @@
+@font-face {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('materials/fonts/Montserrat-Regular.ttf');
+}
+@font-face {
+  font-family: Montserrat;
+  font-style: lighter;
+  font-weight: 100;
+  font-display: swap;
+  src: url('materials/fonts/Montserrat-ExtraLight.ttf');
+}
+@font-face {
+  font-family: Montserrat;
+  font-style: bold;
+  font-weight: 800;
+  font-display: swap;
+  src: url(materials/fonts/Montserrat-Bold.ttf);
+}
+
 @keyframes loading {
   from {stroke-dashoffset: 1010;}
   to {stroke-dashoffset: 0;}
@@ -15,8 +37,10 @@ body {
   margin: 0;
   width: 750px;
   height: 550px;
-  font: 16px Arial;
+  font: 16px Montserrat, sans-serif;
   background: linear-gradient(45deg, #e3faff, #f7f2ff);
+  --glass-bg: linear-gradient(135deg, #ffffffa0, #8a8a8a94);
+  --glass-blur: blur(8px);
 }
 
 .flexed {
@@ -38,14 +62,13 @@ body {
   top: 0; left: 0;
   width: 100%; height: 100%;
   border-radius: 36px;
-  background: #ffffffa0;
-  backdrop-filter: blur(6px);
-  box-shadow: 3px 3px 25px -15px black;
-  transition: background 0.2s;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 4px 4px 30px -14px black;
   z-index: 1;
 }
 .today.visible {
-  margin-left: -350px;
+  margin-left: -48%;
   transition-delay: 0s;
 }
 .today.visible .today-background {
@@ -59,13 +82,7 @@ body {
 }
 .today .weather-main #weatherIcon {
   width: 120px; height: 120px;
-  //background: #ffffff5d;
-  background-size: 1186%;
-  background-position: 36px 36px;
-  border-radius: 40%;
   padding: 5px;
-  //box-shadow: 0px 0px 20px -10px;
-  font-size: 5em;
   user-select: none;
 }
 .today .weather-main #weatherIcon img {
@@ -78,7 +95,7 @@ body {
 }
 .today .weather-main #weatherFeelsLike {
   font-size: 0.66em;
-  color: #4f4f4f;
+  color: #3c3c3c;
   margin-top: 3px;
 }
 
@@ -238,8 +255,8 @@ body {
   left: 50%;
   transform: translate(-50%);
   border-radius: 18px;
-  background: #ffffffa0;
-  backdrop-filter: blur(6px);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
   padding: 0px 20px;
   box-shadow: 0px 0px 20px -10px;
 }
@@ -251,6 +268,9 @@ body {
   padding: 10px 20px 10px 0px;
   font: 18px Arial;
   outline: none;
+}
+.search #searchInput::placeholder {
+  color: #3f3f3f;
 }
 .search #searchButton {
   background: none;
@@ -278,10 +298,10 @@ body {
   max-width: 90%;
   border-radius: 18px 18px 0px 0px;
   box-shadow: 2px 2px 24px -10px black;
-  backdrop-filter: blur(6px);
+  backdrop-filter: var(--glass-blur);
+  background: var(--glass-bg);
 }
 #week .day {
-  background: #ffffffa0;
   padding: 8px;
   flex-direction: column;
 }

@@ -1,5 +1,6 @@
 const googleApiKey = config.GoogleApiKey,
       openweatherApiKey = config.OpenWeatherApiKey;
+      bingApiKey = config.BingApiKey;
 
 var lat = 50.4501, lon = 30.5234;
 var city = "Київ";
@@ -16,10 +17,11 @@ navigator.geolocation.getCurrentPosition(position=>{
 function locationWeather() {
   Promise.all([
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&lang=ua&units=metric&appid=${openweatherApiKey}`),
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat}%2C${lon}&language=ua&key=${googleApiKey}`)
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
   ]).then(responses=>Promise.all(responses.map(response => response.json()))).then(data=>{
+    console.log("Місто за координатами", data[1]);
     document.body.classList.add("loaded");
-    city = data[1].results[0]['address_components'][1]['long_name'];
+    city = data[1].address?.city || data[1].address?.state;
     changeWeather(data[0]);
   }).catch(err=>console.log(err));
 }
@@ -190,7 +192,7 @@ function changeWeather(res) {
     `;
     id("hourly").append(block);
   }
-  console.log(res);
+  console.log("Погода", res);
 }
 
 id("searchInput").onchange = changeCity;
@@ -198,12 +200,12 @@ id("searchButton").onclick = changeCity;
 
 function changeCity() {
   let input = id("searchInput");
-  let c = input.value;
-  if (c) fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${c}&language=ua&key=${googleApiKey}`).then(res=>{return res.json()}).then(res=>{
-    console.log(res);
-    if (res.results[0]) {
-      lat = res.results[0].geometry.location.lat; lon = res.results[0].geometry.location.lng;
-      city = res.results[0]['address_components'][0]['long_name'];
+  let cityInput = input.value;
+  if (cityInput) fetch(`https://nominatim.openstreetmap.org/search?format=json&city=${cityInput}`).then(res=>{return res.json()}).then(res=>{
+    console.log("Координати за назвою міста", res);
+    if (res?.[0]) {
+      ({lat, lon} = res[0]);
+      city = res[0].display_name.split(',')[0];
       fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&lang=ua&units=metric&appid=${openweatherApiKey}`)
         .then(res=>{return res.json()}).then(res=>changeWeather(res));
     } else {
